@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
-  <title>let and const real world</title>
+  <title>let and const real worlds</title>
 </head>
+
 <body>
-<script>
-  {
-    const name = 'wes';
-    console.log(name);
-  }
+  <script>
+    (function () {
+      var name = "jp";
+      console.log(`name is ${name}`);
+    })();
 
-  for(let i = 0; i < 10; i++) {
-    console.log(i);
-    setTimeout(function() {
-      console.log('The number is ' + i);
-    },1000);
-  }
+    console.log(`before block, name is ${name}`);
+    {
+      const name = "wes";
+      console.log(`in block, name is ${name}`);
+    }
 
-</script>
+    console.log(`after block, name is ${name}`);
+  </script>
 </body>
+
 </html>

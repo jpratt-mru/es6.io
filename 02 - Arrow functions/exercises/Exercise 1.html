@@ -1,48 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Arrow Functions</title>
 </head>
+
 <body>
 
-<ul>
-  <li data-time="5:17">Flexbox Video</li>
-  <li data-time="8:22">Flexbox Video</li>
-  <li data-time="3:34">Redux Video</li>
-  <li data-time="5:23">Flexbox Video</li>
-  <li data-time="7:12">Flexbox Video</li>
-  <li data-time="7:24">Redux Video</li>
-  <li data-time="6:46">Flexbox Video</li>
-  <li data-time="4:45">Flexbox Video</li>
-  <li data-time="4:40">Flexbox Video</li>
-  <li data-time="7:58">Redux Video</li>
-  <li data-time="11:51">Flexbox Video</li>
-  <li data-time="9:13">Flexbox Video</li>
-  <li data-time="5:50">Flexbox Video</li>
-  <li data-time="5:52">Redux Video</li>
-  <li data-time="5:49">Flexbox Video</li>
-  <li data-time="8:57">Flexbox Video</li>
-  <li data-time="11:29">Flexbox Video</li>
-  <li data-time="3:07">Flexbox Video</li>
-  <li data-time="5:59">Redux Video</li>
-  <li data-time="3:31">Flexbox Video</li>
-</ul>
+  <ul>
+    <li data-time="5:17">Flexbox Video</li>
+    <li data-time="8:22">Flexbox Video</li>
+    <li data-time="3:34">Redux Video</li>
+    <li data-time="5:23">Flexbox Video</li>
+    <li data-time="7:12">Flexbox Video</li>
+    <li data-time="7:24">Redux Video</li>
+    <li data-time="6:46">Flexbox Video</li>
+    <li data-time="4:45">Flexbox Video</li>
+    <li data-time="4:40">Flexbox Video</li>
+    <li data-time="7:58">Redux Video</li>
+    <li data-time="11:51">Flexbox Video</li>
+    <li data-time="9:13">Flexbox Video</li>
+    <li data-time="5:50">Flexbox Video</li>
+    <li data-time="5:52">Redux Video</li>
+    <li data-time="5:49">Flexbox Video</li>
+    <li data-time="8:57">Flexbox Video</li>
+    <li data-time="11:29">Flexbox Video</li>
+    <li data-time="3:07">Flexbox Video</li>
+    <li data-time="5:59">Redux Video</li>
+    <li data-time="3:31">Flexbox Video</li>
+  </ul>
 
-<script>
+  <script>
 
-  // Select all the list items on the page and convert to array
+    // Select all the list items on the page and convert to array
+    const listItems = document.querySelectorAll('[data-time]');
+    const listItemsArray = [...listItems.values()];
+    // Filter for only the elements that contain the word 'flexbox'
+    const flexboxItems = listItemsArray.filter(item => item.textContent === "Flexbox Video");
 
-  // Filter for only the elements that contain the word 'flexbox'
+    // map down to a list of time strings
+    const timeStrings = flexboxItems.map(li => li.dataset.time);
+    // map to an array of seconds
+    const seconds = timeStrings.map(function (timeString) {
+      const splitTime = timeString.split(":");
+      const seconds = parseInt(splitTime[1], 10);
+      const minutes = parseInt(splitTime[0], 10);
 
-  // map down to a list of time strings
+      return minutes * 60 + seconds;
+    })
+    // reduce to get total
+    const totalSeconds = seconds.reduce((acc, curr) => acc + curr, 0);
 
-  // map to an array of seconds
-
-  // reduce to get total
 
   // 🔥 This can also be done in a single .reduce(), but we're practicing arrow functions here, so chain them!
 
-</script>
+  </script>
 </body>
+
 </html>
