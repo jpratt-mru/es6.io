@@ -5,7 +5,7 @@
 - if you have no arg to an arrow function, need to use ()
   - foo(() => blah);
 - brackets on params is optional only if _one_
-- the return value can be implicit (though you can make it explicit if you want to!)\
+- the return value can be implicit (though you can make it explicit if you want to!)
 - if you want to return an object from an arrow function, you need to "escape" the curly braces with brackets!
   - => ({blah})
 - **SWEET TIP** use console.table(array or object literal) to get a sweet table pop up in the console!
@@ -36,3 +36,85 @@
   return DOMPurify.sanitize(dirty);
   }
   you could then do sanitize`some template literal here that needs to be sanitized`
+
+  ### new string methods
+
+  - .startsWith() / .endsWith()
+    - case sensitive
+    - startsWith() has one version that takes a starting index
+    - endsWith() has one version that takes in the number of characters to "search"
+    - no, you can't use a regex with this
+  - .includes()
+    - has a version that takes a starting index
+  - .repeat(x)
+    - nice for doing pad functions
+
+### destructuring objects
+
+- const {attr1, attr2, attrx} = someObjectWithThoseAttributes
+  - cool! now you have 3 (or whatever) constants called attrx
+- const {attr1, attr2} = some.nested.object
+  - so you can reach into different layers of an object, too
+- const {attr1:foo, attr2:bar} = object with attributes 1 and 2
+  - so you can RENAME the attributes! that's cool!
+- const { x = 0, y = 12, z = 3} = obj
+
+  - if obj doesn't have any of those attributes, the constant in question comes back with the default value
+
+### destructuring arrays
+
+- if you have const details = ['foo', 'bar', 'baz'] then you can go const [a, b, c] = details
+  - note that destructuring objects uses {}, while the same for arrays uses []
+- so that's nice with strings, where we can go [a, b, c] = arr.split()
+- if there are more things in the array than the number of vars in the destructure, the extras are ignored
+  - arr = [1,2,3,4,5], then [a,b,c] = arr gives you a=1,b=2,c=3 and that's it
+- if you _want_ the rest as another array, just use the rest (...) operator: [a,b,...c] = arr
+
+### swapping vars with destructuring
+
+- neat trick if you have two vars you want to swap, just go [a, b] = [b, a]
+
+### destructuring functions (well, more precisely function args!)
+
+- if you have a function that returns an object, you can use destructuring to capture all the attributes you want with a single call:
+  - const {USD, CAD, MEX} = convertCurrency(100)
+  - note that the order doesn't matter, since the destructuring process (with objects) latches on to attribute names
+- you can use destructuring to pass in an object to a function
+  - if you have function tipCalc({total, tip = 0.15, tax = 0.35}), then you can call tipCalc({tip: 20, total: 200}) etc.
+  - then the order of your args doesn't matter (though you do now have to remember the names)
+  - if you do that, you can make it possible to call tipCalc() without args and not blow up....but then you have to modify the function so that it's tipCalc({total, tip = 0.15, tax = 0.35} = {})
+
+### the for-of loop
+
+- for-of can be used with Iterables
+- for (const blah of interable-blah) { do loop stuff with blah - can even do breaks and continues, unlike forEach }
+
+### the for-of in action
+
+- Array.entries() gives you an ArrayIterator, which has a next() method which returns an Object that has a done property and an array called value, which has the current index and the value at that index
+  - so you can get index and values like this for (const [i, val] of array.entries())
+- for-of is nice for arguments (the special `arguments` that is available in any function call)
+  - for (const arg in arguments) blah
+
+### for-of with Objects
+
+- can't for-of an Object directly
+- might be coming in ES2017 (can use a polyfill currently)
+
+### Array.from() and Array.of()
+
+- Array.from(foo) ... you know this, but did you know there is also Array.from(foo, function()), which determines what's in the array that gets built?
+  - Array.from(people, person => person.textContent) would (assuming the array is one of those DOM Collections), give you a "real" array with just people names in it
+- Array.of(x, y, z) just returns an array of...x,y,z. Not sure why you wouldn't just use square-bracket notation....
+
+### Array.find() and Array.findIndex()
+
+- you know find() already....findIndex() is the same thing, except returning the object found, it returns the index of the object found
+
+### spread operator intro
+
+- useful tip: copy arrays such: copy = [...orig]
+
+### spread exercise
+
+-
