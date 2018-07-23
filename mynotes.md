@@ -115,6 +115,62 @@
 
 - useful tip: copy arrays such: copy = [...orig]
 
-### spread exercise
+### object literal upgrades
 
--
+- const obj = {
+  create() {
+  // function stuff here
+  }
+  }
+  instead of const obj = {
+  create: function() {
+
+  }
+  }
+
+- you can create dynamically named attributes in objects:
+  - const key = 'pocketColor';
+    const tshirt = {
+    [`${key}Altered`]
+    }
+    you now have an attribute called 'pocketColorAltered'
+
+### promises
+
+- a promise is a bit like an IOU
+- promise
+  .then(data => blah)
+  .then(data => blah)
+  .catch(err => blah) // use for "promise NOT fulfilled" case
+
+### building your own promises
+
+- const p = new Promise((resolve, reject) => {
+  reject(Error('some error message')) // wrap in Error object to help with stack traces
+  })
+
+### working with multiple promises
+
+- if you have multiple response objects, you can react to all of them:
+- Promise
+  .all([array of promise objects])
+  .then(responses => {
+  return Promise.all(responses.map(res => res.json()))
+  })
+  .then(responses => {
+  actually do something with the parsed responses
+  })
+  - the time needed to wait is determined by the slowest
+- NOT SURE IF I QUITE GROK THIS YET
+
+### Symbols
+
+- const foo = Symbol('bar') the "bar" is just a descriptor - the underlying value of foo is a unique identifier...kind of like a GUID?
+  - even if two symbols have the same _descriptor_, they won't have the same _value_
+    - foo = Symbol('baz')
+    - bar = Symbol('baz')
+    - foo === bar is FALSE
+- if you have an object with a number of symbols as properties, you can't easily iterate over them (blah in collection) won't work
+  - this makes symbols a useful mechanism for storing private data...I think I've seen this mentioned online when the topic of private vars come up
+  - you can iterate with a bit of work:
+    Object.getOwnPropertySymbols(some obj with symbol props).map(s => objName[s])
